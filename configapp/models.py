@@ -16,7 +16,7 @@ class News(models.Model):
     created_ed = models.DateTimeField(auto_now_add=True)
     updated_ed = models.DateTimeField(auto_now=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    photo = models.ImageField(upload_to='photo/%Y/%m/%d/')
+    photo = models.ImageField(upload_to='photo/2025')
     is_bool = models.BooleanField(default=True)
 
     def __str__(self):

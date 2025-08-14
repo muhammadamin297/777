@@ -1,17 +1,23 @@
-<form method="get" action="">
-    <input type="text" name="q" placeholder="Qidirish..." value="{{ query|default:'' }}">
-    <button type="submit">Qidirish</button>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Qidiruv natijalari</title>
+</head>
+<body>
+<h1>"{{ keyword }}" so‘zi bo‘yicha qidiruv natijalari</h1>
 
-{% if query %}
-    <h2>Natijalar: "{{ query }}"</h2>
-    {% if results %}
-        <ul>
-            {% for news in category %}
-                <li>{{ news.title }} </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>Hech narsa topilmadi</p>
-    {% endif %}
+{% if results %}
+    {% for item in results %}
+        <div>
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.content|truncatewords:20 }}</p>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>Hech narsa topilmadi</p>
 {% endif %}
+
+<a href="{% url 'home' %}">⬅ Bosh sahifaga qaytish</a>
+</body>
+</html>

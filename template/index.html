@@ -1,17 +1,44 @@
-<form method="get" action="{% url 'search-by-form' %}">
-    <input type="text" name="q" placeholder="Qidirish..." value="{{ query|default:'' }}">
-    <button type="submit">Qidirish</button>
-</form>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Yangiliklar</title>
+</head>
+<body>
+    <h1>Yangiliklar sayti</h1>
 
-{% if query %}
-    <h2>Natijalar: "{{ query }}"</h2>
-    {% if results %}
-        <ul>
-            {% for news in results %}
-                <li>{{ news.title }} — {{ news.context|truncatechars:50 }}</li>
-            {% endfor %}
-        </ul>
+    <!-- Qidiruv formasi -->
+    <form method="get" action="{% url 'search_by_form' %}">
+        <input type="text" name="q" value="{{ keyword }}" placeholder="Qidiruv...">
+        <button type="submit">Izlash</button>
+    </form>
+
+    <hr>
+
+    <!-- Kategoriyalar -->
+    <h2>Kategoriyalar</h2>
+    <ul>
+        {% for cat in category %}
+            <li>{{ cat.title }}</li>
+        {% endfor %}
+    </ul>
+
+    <hr>
+
+    <!-- Yangiliklar -->
+    <h2>Yangiliklar</h2>
+    {% if news %}
+        {% for item in news %}
+            <div>
+                <h3>{{ item.title }}</h3>
+                <p>{{ item.context|truncatewords:20 }}</p>
+                <img src="{{ item.photo.url }}" width="150">
+                <p>Kategoriya: {{ item.category.title }}</p>
+                <p>Qo‘shilgan sana: {{ item.created_ed }}</p>
+            </div>
+            <hr>
+        {% endfor %}
     {% else %}
-        <p>Hech narsa topilmadi</p>
+        <p>Natija topilmadi.</p>
     {% endif %}
-{% endif %}
+</body>
+</html>
